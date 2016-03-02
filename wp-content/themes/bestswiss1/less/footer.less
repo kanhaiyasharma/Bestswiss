@@ -1,0 +1,43 @@
+/*
+Inhalt: Footer
+Theme Name: HTML5
+Description: Responsives Basis-Template | Version 1
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+/** FOOTER BASICS **/
+	footer {
+		margin: 0 0 0 0;
+		padding: 0 0 0 0;
+		position: relative;
+		clear: both;
+		width: 100%;
+		max-width: 100%;
+		background: @footer_background;}
+	
+	footer .wrapper {
+		margin: 0 auto;
+		padding: 20px 0 0 @content_padding_left;
+		width: 100%;
+		float:left;
+		max-width: @footer_max_width;
+		background: @footer_background;}
+	
+	footer .wrapper .column {
+		float: left;
+		max-width: @footer_max_width;
+		width: ( 100% / @anzahl_spalten );}
+		
+	#footer_regular {
+		position: relative;
+	    width: 930px;
+	    display:block;
+	    margin: 0 auto;
+	    height:auto;}
+		
+	#footer_mobile {
+		position: fixed;
+	    top: 0; 
+		left: -400px;
+	    width: 0;}

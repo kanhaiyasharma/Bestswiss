@@ -1,0 +1,116 @@
+/*
+Inhalt: Primäre Navigation
+Theme Name: HTML5
+Description: Responsives Basis-Template | Version 1
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+/** VARIABLEN **/
+		@n2_position: right; /** NUR AKTIV, WENN KEIN FLOAT **/
+		@n2_float: right; /** NUR AKTIVIEREN, WENN NEBEN DER NAVI ANDERE ELEMENTE WIE DIE SUCHE **/
+		
+		@n2_list_icon: none;
+	
+/** CONTAINER **/	
+
+	div#pnav {
+	float:@n2_position;
+	margin-top:25px;}
+
+	nav.primary {
+		height: auto;
+		text-align: @n2_position;
+		margin: 0 auto;
+		padding: 0 0 0 0;
+		position: relative;
+		z-index:1000;}
+		
+/** ELEMENT - UL **/
+	nav.primary.regular ul {
+		list-style: @n2_list_icon;
+		white-space: nowrap!important;
+		margin: 0 auto;}
+
+/** 1ST LEVEL / ELEMENT - LI **/
+	nav.primary.regular ul li {
+		float: left;}
+	
+	nav.primary.regular ul li a {
+		display: block;
+		font-family: @n2_font_family;
+		color: @n2_color;
+		font-size: @n2_font_size;
+		line-height: @n2_line_height;
+		text-transform: @n2_uppercase;
+		text-decoration: @n2_underline;
+		background: @n2_background;
+		padding: 0px 30px 0px 30px;
+		margin: 0px 0px 0px 0px;
+		border-width: 0px;
+		border-style: none;
+		border-color: none;
+		border-radius: 0px;
+		zoom: 1; /* IE7 */}
+		
+	nav.primary.regular ul li a:hover {
+		color: #ffffff;
+		text-transform: @n2_hover_uppercase;
+		text-decoration: @n2_hover_underline;
+		background: @n2_background_hover;
+		border-width: 0px;
+		border-style: none;
+		border-color: none;
+		border-radius: 0px;
+		opacity: @opacy;
+		transition-duration: @transition-duration;}
+
+	/** EINZELNE ELEMENTE | FIRST CHILD **/
+	nav.primary.regular ul li:first-child a {}
+	
+	nav.primary.regular ul li:first-child a:hover {}
+
+	/** EINZELNE ELEMENTE | LAST CHILD **/
+	nav.primary.regular ul li:last-child a {
+		margin: 0px 0px 0px 0px;}
+	
+	nav.primary.regular ul li:last-child a:hover {}
+
+	/** EINZELNE ELEMENTE | 2. CHILD **/
+	nav.primary.regular ul li:nth-child(2) a {}
+	nav.primary.regular ul li:nth-child(2) a:hover {}
+
+	/** EINZELNE ELEMENTE | 3. CHILD **/
+	nav.primary.regular ul li:nth-child(3) a {}
+	nav.primary.regular ul li:nth-child(3) a:hover {}
+
+	/** EINZELNE ELEMENTE | 4. CHILD **/
+	nav.primary.regular ul li:nth-child(4) a {}
+	nav.primary.regular ul li:nth-child(4) a:hover {}
+
+	/** EINZELNE ELEMENTE | 5. CHILD **/
+	nav.primary ul li:nth-child(5) a {}
+	nav.primary ul li:nth-child(5) a:hover {}
+	
+
+/** CURRENT STATE **/
+	nav.primary.regular ul li.current-menu-item a {
+		color: @gold;
+		background: @n2_current_background;}
+
+
+/** 2ND LEVEL / ELEMENT - LI **/
+	nav.primary.regular ul ul {
+		display: none;
+		position: absolute;}
+	
+	nav.primary.regular ul ul li {
+		float: none;}
+	
+	nav.primary.regular ul li a {}
+		
+	nav.primary.regular ul li:hover > ul {
+		display: block;}
+		
+
+

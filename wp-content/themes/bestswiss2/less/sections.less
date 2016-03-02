@@ -1,0 +1,35 @@
+/*
+Inhalt: Body
+Theme Name: HTML5
+Description: Responsives Basis-Template | Version 1
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+	#headerwrap {
+		max-width: @header_wrap;
+		margin: 0 auto;}
+		
+	#contentwrap {
+		max-width: @content_max_width;
+		margin: 0 auto;}
+
+	#sidebar, #sitecontent {
+		position: relative;
+		display: block;
+		height: auto;
+		width: auto;
+		float: left;}
+	
+	#sidebar.left, #sidebar.right {
+		min-width: 50px;
+		max-width: 20%;
+		width: 20%;
+		float:left;}
+	
+	#sitecontent {
+		max-width: 100%;
+		min-width: 60%;
+		width: 100%;
+		height: auto;
+		float:left;}
