@@ -1,0 +1,229 @@
+/*
+Inhalt: Family-Browser V1.1
+Theme Name: HTML5
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+/** BROWSER 2 **/
+	@img-first: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-last: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-2: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-3: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-4: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-5: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-6: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-7: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-8: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-9: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+	@img-10: url("http://www.oelerich.ch/img/platzhalter-subnav.svg");
+
+/** VARIABLEN **/
+	
+	@fnav-width: 100%;
+	@fnav-padding: 20px 0px 20px 0px;
+	@fnav-container-bg: rgba(242, 242, 242, 0.9);
+	
+	@fnav-item-width: 100px;
+	@fnav-item-height: auto;
+	@fnav-item-margin: 0px 20px 0px 20px;
+	
+	@fnav-item-background: transparent;
+	@fnav-item-background-hover: transparent;
+	@fnav-item-background-current: transparent;
+	
+	@fnav-item-image-size: 60px 60px;
+	@fnav-item-label-padding-top: 65px;
+
+	@fnav-font-family: 'Open Sans', serif;
+	@fnav-color: #333333;
+	@fnav-hover-color: #333333;
+	@fnav-current-color: #333333;
+	@fnav-font-size: 0.8em;
+	@fnav-line-height: 1.0em;
+	@fnav-underline: none;
+	@fnav-hover-underline: none;
+	@fnav-uppercase: none;
+	@fnav-hover-uppercase: none;
+	
+/** BUTTONS **/
+
+	#paddles {
+	display:block;
+	z-index:500;}
+	
+	#fnav-button-left,
+	#fnav-button-right {
+  		display: block;
+  		float: left;
+  		width: 60px;
+  		height: 120px;
+  		position: absolute;
+  		top:94px;
+  		margin: 0 0 0 0;
+  		z-index:1000;}
+
+	#fnav-button-left {
+  		left:0;}
+
+	#fnav-button-right {
+  		right:0;}
+  		
+  	@media only screen and (max-width: 1023px) {
+  		#fnav-button-left,
+		#fnav-button-right {top:80px;}}
+
+
+/** OUTER WRAP **/
+	#fnav {
+  		width: @fnav-width;
+  		background: @fnav-container-bg;
+  		overflow-y: hidden;
+  		overflow-x: scroll;
+  		white-space: nowrap;
+  		padding: @fnav-padding;}
+  	
+/** INNER WRAP **/
+	#familybrowser {
+		display: block;
+		position: relative;
+		height: auto;
+		min-width: 100%;
+		text-align: center;
+		margin: 0 auto;
+  		float: left;}
+
+/** LIST-ITEMS **/  	
+  	#familybrowser ul {
+  		margin: 0 auto;
+  		list-style: none;
+		white-space: nowrap;
+		display: inline-block;}
+		
+	#familybrowser li {
+  		height: @fnav-item-height;
+		width: @fnav-item-width;
+		margin: @fnav-item-margin;
+		display: inline-block;
+  		text-align: center;}
+  	
+  	#familybrowser li a {
+  		position: relative;
+  		height: @fnav-item-height;
+		width: @fnav-item-width;
+		display: block;
+		padding-top: @fnav-item-label-padding-top;
+		margin-bottom: 0px;
+		vertical-align: top;
+		color: @fnav-color;
+		cursor: auto;
+		list-style: none;
+  		text-align: center;
+  		white-space: nowrap;
+  		font-family: @fnav-font-family;
+  		font-size: @fnav-font-size;
+  		line-height: @fnav-line-height;
+  		text-transform: @fnav-uppercase;
+  		text-decoration: @fnav-underline;
+  		background: @fnav-item-background;
+  		background-position: top center;}
+  	
+  	#familybrowser li a:hover {
+  		color: @fnav-hover-color;
+  		text-transform: @fnav-hover-uppercase;
+  		text-decoration: @fnav-hover-underline;
+  		background: @fnav-item-background-hover;
+		opacity: @opacy;
+		transition-duration: @transition-duration;}
+  		
+	/** EINZELNE ELEMENTE | FIRST CHILD **/
+		#familybrowser li:first-child a {
+			background-repeat: no-repeat;
+			background-image: @img-first;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:first-child a:hover {} 
+	
+	/** EINZELNE ELEMENTE | LAST CHILD **/
+		#familybrowser li:last-child a {
+			background-repeat: no-repeat;
+			background-image: @img-last;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:last-child a:hover {} 
+	
+	/** EINZELNE ELEMENTE | 2ND CHILD **/
+		#familybrowser li:nth-child(2) a {
+			background-repeat: no-repeat;
+			background-image: @img-2;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(2) a:hover {} 
+		
+	/** EINZELNE ELEMENTE | 3RD CHILD **/
+		#familybrowser li:nth-child(3) a {
+			background-repeat: no-repeat;
+			background-image: @img-3;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(3) a:hover {} 	
+	
+	/** EINZELNE ELEMENTE | 4TH CHILD **/
+		#familybrowser li:nth-child(4) a {
+			background-repeat: no-repeat;
+			background-image: @img-4;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(4) a:hover {} 
+
+	/** EINZELNE ELEMENTE | 5TH CHILD **/
+		#familybrowser li:nth-child(5) a {
+			background-repeat: no-repeat;
+			background-image: @img-5;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(5) a:hover {} 		
+
+	/** EINZELNE ELEMENTE | 6TH CHILD **/
+		#familybrowser li:nth-child(6) a {
+			background-repeat: no-repeat;
+			background-image: @img-6;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(6) a:hover {}
+
+	/** EINZELNE ELEMENTE | 7TH CHILD **/
+		#familybrowser li:nth-child(7) a {
+			background-repeat: no-repeat;
+			background-image: @img-7;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(7) a:hover {} 	
+	
+	/** EINZELNE ELEMENTE | 8TH CHILD **/
+		#familybrowser li:nth-child(8) a {
+			background-repeat: no-repeat;
+			background-image: @img-8;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(8) a:hover {} 
+
+	/** EINZELNE ELEMENTE | 9TH CHILD **/
+		#familybrowser li:nth-child(9) a {
+			background-repeat: no-repeat;
+			background-image: @img-9;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(9) a:hover {} 		
+
+	/** EINZELNE ELEMENTE | 10TH CHILD **/
+		#familybrowser li:nth-child(10) a {
+			background-repeat: no-repeat;
+			background-image: @img-10;
+			background-size: @fnav-item-image-size;	
+			background-position: top center;}
+		#familybrowser li:nth-child(10) a:hover {} 
+	
+	/** CURRENT STATE **/
+	#familybrowser li.current-menu-item a {
+		color: @fnav-current-color;}	
