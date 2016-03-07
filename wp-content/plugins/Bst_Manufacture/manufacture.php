@@ -598,5 +598,25 @@ function save_yith_shop_vendor_shipping($termidval){
 }
 
 
+/*
+ * To assign highlite on active menu in admin for vendor category,vendor regions
+ *
+ */
+
+spl_autoload_register(function($classes){
+
+ $path = ABSPATH.'wp-content/plugins/Bst_Manufacture/includes/'.$classes.".php";
+ if(file_exists($path)){
+ include_once($path);
+ }
+
+});
+
+
+$objuserlist = new adminUeserdetail();
+
+$objuserlist->menuHighlighter();
+
+
 
 ?>
