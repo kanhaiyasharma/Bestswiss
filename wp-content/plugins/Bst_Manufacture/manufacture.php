@@ -392,6 +392,11 @@ add_action( 'admin_menu', 'wpdocs_register_my_custom_menu_page' );
     $regto = $_POST['yith_vendor_data1']['regto'];
     update_woocommerce_term_meta($idval,'regfrom',$regfrom);
     update_woocommerce_term_meta($idval,'regto',$regto);
+
+
+    
+    update_woocommerce_term_meta($idval,'chkshowlogo',$_POST['yith_vendor_data1']['chkshowlogo']);
+    update_woocommerce_term_meta($idval,'vendorstatus',$_POST['yith_vendor_data1']['vendorstatus']);
     
 
     foreach( $meta_value as $meta_b )

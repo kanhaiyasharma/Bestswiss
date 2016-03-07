@@ -71,7 +71,7 @@ function add_image_metabox(){
 						$trmid = $GLOBALS['vendor']->id;
  						YITH_Vendors()->admin->add_upload_field( 'table', $GLOBALS['vendor']->header_image ) ?>
                </tr>
-               <tr class="form-field yith-choosen">
+               <tr class="form-field yith-choosen" style="display:none;">
 				    <th scope="row" valign="top">
 				        <label for="key_user"><?php _e( 'Vendor Shop Owner', 'yith_wc_product_vendors' ); ?></label>
 				    </th>
@@ -89,7 +89,7 @@ function add_image_metabox(){
 				    </td>
 				</tr>
 
-				<tr class="form-field yith-choosen">
+				<tr class="form-field yith-choosen" style="display:none;">
 				    <th scope="row" valign="top">
 				        <label for="yith_vendor_admins"><?php _e( 'Vendor Shop Admins', 'yith_wc_product_vendors' ); ?></label>
 				    </th>
@@ -517,7 +517,7 @@ function add_image_metabox(){
 				             $Beschreibungeditor = get_woocommerce_term_meta($trmid,'Beschreibungeditor',true); 
 				            $content = urldecode($Beschreibungeditor);
 				            $editor_id ='Beschreibungeditor';
-				            $settings = array('textarea_name' => 'yith_vendor_data1[Beschreibungeditor]','textarea_rows'=>5);
+				            $settings = array('textarea_name' => 'yith_vendor_data1[Beschreibungeditor]','textarea_rows'=>40);
 
 				            wp_editor( $content, $editor_id, $settings); 
 				      ?> 
@@ -531,6 +531,22 @@ function add_image_metabox(){
 				    <th scope="row"><label for="Untertitel">Logo</label></th>
 				    <td> 
 				     <?php  add_upload_field1( 'span', $vendor->header_logo,'header_logo','Header Logo','false'); ?>
+				    </td>
+				</tr>
+
+				<tr class="form-field term-slug-wrap">
+				    <th scope="row"><label for="Untertitel">Show Logo</label></th>
+				    <td> <?php $chkshowlogo=get_woocommerce_term_meta($trmid,'chkshowlogo',true); ?>
+					     <input type="hidden" name="yith_vendor_data[chkshowlogo]" value="0" />
+	                  	 <label><input <?php if($chkshowlogo==1){echo "checked=checked";} ?> type="checkbox" name="yith_vendor_data[chkshowlogo]" value="1" > Show / Hide logo on vendor listing page</label>
+				    </td>
+				</tr>
+
+				<tr class="form-field term-slug-wrap">
+				    <th scope="row"><label for="Untertitel">Enable Vendor</label></th>
+				    <td> <?php $vendorstatus=get_woocommerce_term_meta($trmid,'vendorstatus',true); ?>
+					     <input type="hidden" name="yith_vendor_data[vendorstatus]" value="0" />
+	                  	 <label><input <?php if($vendorstatus==1){echo "checked=checked";} ?> type="checkbox" name="yith_vendor_data[vendorstatus]" value="1" > Enable/Disable vendors </label>
 				    </td>
 				</tr>
 
