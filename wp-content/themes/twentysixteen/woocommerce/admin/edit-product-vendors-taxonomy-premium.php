@@ -8,7 +8,7 @@
  * http://www.gnu.org/licenses/gpl-3.0.txt
  */
 ?>
-
+ 
 <?php
 //__p($vendor);
  $GLOBALS['vendor'] = $vendor;
@@ -18,3 +18,5 @@
  $GLOBALS['social_fields'] = $social_fields;
  
 ?>
+
+

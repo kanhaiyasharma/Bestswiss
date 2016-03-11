@@ -141,9 +141,10 @@
 			var thisAnswer = e.target.parentNode.nextElementSibling;
 			var thisQuestion = e.target;
 			if(thisAnswer.classList.contains('is-collapsed')) {
-				setAccordionAria(thisQuestion, thisAnswer, 'true');
+				 setAccordionAria(thisQuestion, thisAnswer, 'true');
 				} else {
-				setAccordionAria(thisQuestion, thisAnswer, 'false');}
+				 setAccordionAria(thisQuestion, thisAnswer, 'false');
+			    }
   			thisQuestion.classList.toggle('is-collapsed');
   			thisQuestion.classList.toggle('is-expanded');
 			thisAnswer.classList.toggle('is-collapsed');

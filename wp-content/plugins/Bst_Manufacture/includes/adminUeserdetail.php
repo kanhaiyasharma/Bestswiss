@@ -10,24 +10,34 @@ class adminUeserdetail{
    		add_action('parent_file', 'menu_correction');
 	    function menu_correction($parent_file) 
 	    {
-		global $current_screen;
-		$taxonomy = $current_screen->taxonomy;
+	    	global $current_screen,$pagenow;
+	 	$taxonomy = $current_screen->taxonomy;
+	 	$post_type = $current_screen->post_type;
 
-			if ($taxonomy == 'bstregions' )
-			{
-				$parent_file = 'edit-tags.php?taxonomy=bstregions&post_type=product';
-				return $parent_file;
-			}
-			if ($taxonomy == 'bstvencategory' )
-			{
-				$parent_file = 'edit-tags.php?taxonomy=bstvencategory&post_type=product';
-				return $parent_file;
-			}
-			else 
-			{
-				$parent_file = 'edit.php';
-				return $parent_file;
-			}
+	 	if($post_type == 'product')
+	 	{
+            if($pagenow == 'post.php')
+            {
+                $parent_file = 'edit.php?post_type='.$post_type;
+            }
+
+            if($pagenow == 'edit-tags.php')
+            {
+            	if( $taxonomy == 'bstregions' )
+            	{
+            		$parent_file = $pagenow.'?taxonomy='.$taxonomy.'&post_type='.$post_type;
+            	}
+            	if( $taxonomy == 'bstvencategory' )
+		 		{
+		 			$parent_file = $pagenow.'?taxonomy='.$taxonomy.'&post_type='.$post_type;
+		 		}
+		 		if( $taxonomy == 'yith_shop_vendor') 
+		 		{
+		 			$parent_file = $pagenow.'?taxonomy='.$taxonomy.'&post_type='.$post_type;
+		 		}
+            }
+        }
+        return $parent_file;
 		}
 
    	

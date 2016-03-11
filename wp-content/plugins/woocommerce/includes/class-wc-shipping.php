@@ -100,6 +100,7 @@ class WC_Shipping {
 	 * @return array
 	 */
 	public function load_shipping_methods( $package = array() ) {
+		
 
 		$this->unregister_shipping_methods();
 

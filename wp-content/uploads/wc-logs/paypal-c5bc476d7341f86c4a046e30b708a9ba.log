@@ -169,3 +169,6 @@
 02-17-2016 @ 11:37:35 - Found order #36
 02-17-2016 @ 11:37:35 - Payment status: completed
 02-17-2016 @ 11:37:35 - IPN Response is for another account: kanhaiyabuyer786@gmail.com. Your email is kanhaiya.sharma@wwindia.com
+03-04-2016 @ 14:47:51 - Generating payment form for order 44. Notify URL: http://10.0.100.142/thomas/working/Bestswiss/wc-api/WC_Gateway_Paypal/
+03-09-2016 @ 08:07:20 - Generating payment form for order 134. Notify URL: http://10.0.100.142/thomas/working/Bestswiss/wc-api/WC_Gateway_Paypal/
+03-09-2016 @ 08:11:06 - Generating payment form for order 136. Notify URL: http://10.0.100.142/thomas/working/Bestswiss/wc-api/WC_Gateway_Paypal/
