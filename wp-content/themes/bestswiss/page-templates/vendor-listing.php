@@ -17,10 +17,14 @@
 	<?php
      $currentdate= date('m/d/Y');
      global $wpdb;
-     $wpterid=$wpdb->get_col("SELECT woocommerce_term_id  FROM `wp_woocommerce_termmeta` WHERE `meta_key` LIKE 'regto' and `meta_value`>='".$currentdate."'");
+     echo "SELECT woocommerce_term_id  FROM `".$wpdb->prefix."woocommerce_termmeta` WHERE `meta_key` LIKE 'regto' and `meta_value`>='".$currentdate."'";
+     $wpterid=$wpdb->get_col("SELECT woocommerce_term_id  FROM `".$wpdb->prefix."woocommerce_termmeta` WHERE `meta_key` LIKE 'regto' and `meta_value`>='".$currentdate."'");
      
 	   $argtxt=array('orderby'=>'name','order'=>'ASC','hide_empty'=>0,'include'=>$wpterid );
      $taxlist = get_terms('yith_shop_vendor',$argtxt);
+
+     __p($taxlist);
+     die;
      
      $alphaval = range('A','Z');
        
