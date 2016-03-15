@@ -10,4 +10,4 @@
 #/nbproject/
 
 /wp-config.php
-/.htaccess
+#/.htaccess
