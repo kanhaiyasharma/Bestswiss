@@ -618,11 +618,11 @@ spl_autoload_register(function($classes){
 });
 
 
-$objuserlist = new adminUeserdetail();
+$objuserlist = new adminUserdetail();
 
-$objuserlist->menuHighlighter();
+$objuserlist->test();
 
-$objuserlist->ShowLastmodifier();
+//$objuserlist->ShowLastmodifier();
 
 
 

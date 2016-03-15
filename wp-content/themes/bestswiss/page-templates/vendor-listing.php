@@ -15,9 +15,14 @@
 <!-- CONTENT -->
 	<section id="sitecontent">
 	<?php
-	   $argtxt=array('orderby'=>'name','order'=>'ASC','hide_empty'=>0 );
-       $taxlist = get_terms('yith_shop_vendor',$argtxt);
-       $alphaval = range('A','Z');
+     $currentdate= date('m/d/Y');
+     global $wpdb;
+     $wpterid=$wpdb->get_col("SELECT woocommerce_term_id  FROM `wp_woocommerce_termmeta` WHERE `meta_key` LIKE 'regto' and `meta_value`>='".$currentdate."'");
+     
+	   $argtxt=array('orderby'=>'name','order'=>'ASC','hide_empty'=>0,'include'=>$wpterid );
+     $taxlist = get_terms('yith_shop_vendor',$argtxt);
+     
+     $alphaval = range('A','Z');
        
        
        $col=0;
@@ -26,7 +31,7 @@
         $currentAlpha = chr($a);
         if($col==0){
             $vendorlistcolumn.='<div class="marken-listing-col">';
-        }elseif($col%8==0){
+        }elseif($col%10==0){
             $vendorlistcolumn.='</div><div class="marken-listing-col">';
         }
 
