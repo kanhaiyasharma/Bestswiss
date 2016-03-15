@@ -49,8 +49,10 @@
                  $vendorlistcolumn.="<li><a href='".esc_url($term_link)."'>".$value->name."</a></li>"; 
                 }else{
                     $getImageurl=get_woocommerce_term_meta($value->term_id,'header_logo',true);
+                    $attacharray = wp_get_attachment($getImageurl);
                      $imagesrc = wp_get_attachment_image_src($getImageurl , 'single-post-thumbnail' );
-                    $vendorlistcolumn.="<span class='marken-listing-logo'><a href='".esc_url($term_link)."'><img alt='".$value->name."' src='".$imagesrc[0]."'/></a></span>"; 
+                     $imgalt = ($attacharray['alt']!='')?$attacharray['alt']:$value->name;
+                    $vendorlistcolumn.="<span class='marken-listing-logo'><a href='".esc_url($term_link)."'><img alt='".$imgalt."' src='".$imagesrc[0]."'/></a></span>"; 
                 }
             }
          }
