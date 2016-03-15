@@ -1,0 +1,50 @@
+.wp_ccp_plugin-admin-category-details-label {
+	display: block;
+	float: left;
+	width: 100px;
+	font-weight: bold;
+	clear: both;
+	text-align: right;
+	margin-right: 8px;
+}
+.wp_ccp_plugin-admin-category-details-value {
+	display: block;
+	float: left;
+	width: 600px;
+}
+.wp_ccp_plugin-admin-single-category {
+	clear: both;
+	margin-bottom: 10px;
+	zoom:1;
+}
+.wp_ccp_plugin-admin-single-category:before,
+.wp_ccp_plugin-admin-single-category:after {
+	content:"";
+	display:table;
+}
+.wp_ccp_plugin-admin-single-category:after {
+	clear:both;
+}
+
+#wp-copy-wrap {
+	width: 775px;
+}
+
+#wp_ccp_plugin-settings {
+	background: #efefef;
+	padding: 5px 15px 15px 15px;
+}
+
+#wp_ccp_plugin-settings h3 {
+	font-size: 1em;
+	margin: 0.5em 0;
+}
+
+#wp_ccp_plugin-settings .form-table {
+	margin-bottom: 0;
+}
+
+#wp_ccp_plugin-settings .form-table th {
+	padding-left: 0;
+	padding-right: 0;
+}

@@ -1,0 +1,19 @@
+<?php
+
+
+function add_theme_scripts($hook) {
+
+	echo "<pre>";
+    print_r($hook);
+	echo "</pre>";
+	die;
+
+  wp_enqueue_style( 'bsttabmain', plugins_url().'/Bst_Manufacture/tabmodule/css/main.css', array());
+  wp_enqueue_style( 'bsttabtabs', plugins_url().'/Bst_Manufacture/tabmodule/css/tabs.css', array());
+
+  wp_enqueue_script( 'bstscripttabs', plugins_url().'/Bst_Manufacture/tabmodule/js/tabs.js', array ( 'jquery' ), 1.1, true);
+ 
+}
+add_action( 'admin_enqueue_scripts', 'add_theme_scripts' );
+
+?>
