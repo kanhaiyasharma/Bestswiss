@@ -1,0 +1,12 @@
+/wp-config.php
+#/wp-content/uploads/
+#/wp-content/cache/
+#/.htaccess
+#/wp-content/wfcache/
+#/wp-content/themes/fap/nbproject/
+#/error_log
+#/wp-content/error_log
+#/robots.txt
+#/wp-content/plugins/wordfence/tmp/
+#/wp-content/plugins/really-simple-captcha/tmp/
+#/nbproject/
