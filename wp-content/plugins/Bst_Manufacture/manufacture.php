@@ -90,7 +90,7 @@ function add_custom_rewrite_rule() {
     } // end if/else
 
 } // end add_custom_rewrite_rule
-add_action('init', 'add_custom_rewrite_rule',10,0);
+//add_action('init', 'add_custom_rewrite_rule',10,0);
 
 
 

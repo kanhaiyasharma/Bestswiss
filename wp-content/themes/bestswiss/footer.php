@@ -6,7 +6,11 @@
     	<section class="wrapper">
 			<h3 class="hidden">Inhalt des Footers</h3>
             
-            <div id="breadcrumb"><?php if (function_exists('nav_breadcrumb')) nav_breadcrumb(); ?></div>
+            <div id="breadcrumb"><?php
+             
+             //if (function_exists('nav_breadcrumb')) nav_breadcrumb();
+              if (function_exists('woocommerce_breadcrumb')) woocommerce_breadcrumb();
+              ?></div>
             
         	<div id="footer_regular">
             
