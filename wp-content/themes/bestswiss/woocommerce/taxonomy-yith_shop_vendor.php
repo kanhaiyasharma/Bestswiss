@@ -68,7 +68,7 @@ $termid =$obj->term_id;
 
 		<div>
 		   <?php
-			$Beschreibungeditor=get_woocommerce_term_meta($termid,'Beschreibungeditor',true);
+			$Beschreibungeditor=wpautop(get_woocommerce_term_meta($termid,'Beschreibungeditor',true));
 			echo $Beschreibungeditor;
 
 			/* Gallery Images */
