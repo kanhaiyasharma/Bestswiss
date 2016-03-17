@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php get_header(); 
 
+
 $obj =get_queried_object();
 $slug = $obj->slug;
 $termid =$obj->term_id;
@@ -98,21 +99,30 @@ $termid =$obj->term_id;
 	</div> 
 
 	<?php
-		$proargument = array('post_type'=>'product','tax_query'=>array(
-				'taxonomy' =>'yith_shop_vendor',
-				'field' => 'slug',
-				'terms' => 'test'
-			));
-		$prodArray = new WP_Query($proargument);
+
 
 	?>
-  <?php if(count($prodArray->posts)){ ?>
+  <?php 
+   $divimage='';
+		$argsprd = array(
+			'post_type' => 'product',
+			'tax_query' => array(
+			    array(
+			    'taxonomy' => 'yith_shop_vendor',
+			    'field' => 'id',
+			    'terms' => $termid
+			     )
+			  )
+			);
+		$prodArray = new WP_Query($argsprd);
+
+  if(count($prodArray->posts)){ ?>
 <!-- RIGHT COL -->
 	<div class="marken-detail-col-right">
 		<div class="category-header"><h3>Produkte</h3></div>
 	
 		<?php 
-		   $divimage='';
+
 			foreach ($prodArray->posts as $key => $value) {
 				$id=$value->ID;
 				$title =$value->post_title;
