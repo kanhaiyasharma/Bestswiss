@@ -114,17 +114,58 @@ class Post_Views_Counter_Frontend {
 		wp_enqueue_style( 'post-views-counter-frontend', POST_VIEWS_COUNTER_URL . '/css/frontend.css' );
 
 		if ( Post_Views_Counter()->options['general']['counter_mode'] === 'js' ) {
+			$objpgarray= get_queried_object();
+
+			if($objpgarray->term_id){
+				$taxtype = $objpgarray->taxonomy;
+				$taxid = $objpgarray->term_id;
+				$tax_types = Post_Views_Counter()->options['general']['tax_types_count'];
+
+				// whether to count this post type or not
+				if (!in_array($taxtype,$tax_types)){
+					return;
+				}
+
+				wp_register_script(
+					'post-views-counter-frontend', POST_VIEWS_COUNTER_URL . '/js/frontend.js', array( 'jquery' )
+				);
+
+				wp_enqueue_script( 'post-views-counter-frontend' );
+
+				wp_localize_script(
+					'post-views-counter-frontend',
+					'pvcArgsFrontend',
+					array(
+						'ajaxURL'	 => admin_url( 'admin-ajax.php' ),
+						'postID'	 => $taxid,
+						'nonce'		 => wp_create_nonce( 'pvc-check-post' ),
+						'postType'	 => $taxtype,
+						'istax'  	 => 1
+					)
+				);
+
+			}
+			else{
+
 			$post_types = Post_Views_Counter()->options['general']['post_types_count'];
 
 			// whether to count this post type or not
-			if ( empty( $post_types ) || ! is_singular( $post_types ) )
+			if ( empty( $post_types ) || ! is_singular( $post_types ) ){
+				die('echo if condition');
 				return;
+			}
 
 			wp_register_script(
 				'post-views-counter-frontend', POST_VIEWS_COUNTER_URL . '/js/frontend.js', array( 'jquery' )
 			);
 
 			wp_enqueue_script( 'post-views-counter-frontend' );
+
+			$taxid=$taxtype='';
+			if($objpgarray->term_id){
+				$taxid=$objpgarray->term_id;
+				$taxtype = $objpgarray->taxonomy;
+			}
 
 			wp_localize_script(
 				'post-views-counter-frontend',
@@ -133,9 +174,13 @@ class Post_Views_Counter_Frontend {
 					'ajaxURL'	 => admin_url( 'admin-ajax.php' ),
 					'postID'	 => get_the_ID(),
 					'nonce'		 => wp_create_nonce( 'pvc-check-post' ),
-					'postType'	 => get_post_type()
+					'postType'	 => get_post_type(),
+					'istax'		 =>0
 				)
 			);
-		}
+           
+           }//Else start
+
+		}//js end
 	}
 }

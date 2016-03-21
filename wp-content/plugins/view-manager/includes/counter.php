@@ -128,7 +128,10 @@ class Post_Views_Counter_Counter {
 	 * Check whether to count visit via AJAX request.
 	 */
 	public function check_post_ajax() {
-		if ( isset( $_POST['action'], $_POST['post_id'], $_POST['pvc_nonce'], $_POST['post_type'] ) && $_POST['action'] === 'pvc-check-post' && ($post_id = (int) $_POST['post_id']) > 0 && wp_verify_nonce( $_POST['pvc_nonce'], 'pvc-check-post' ) !== false ) {
+		$objpgarray= get_queried_object();
+		
+
+		if (($_POST['istax'] ==0) && (  isset( $_POST['action'], $_POST['post_id'], $_POST['pvc_nonce'], $_POST['post_type'] ) && $_POST['action'] === 'pvc-check-post' && ($post_id = (int) $_POST['post_id']) > 0 && wp_verify_nonce( $_POST['pvc_nonce'], 'pvc-check-post' ) !== false )) {
 			
 			// do we use Ajax as counter?
 			if ( Post_Views_Counter()->options['general']['counter_mode'] != 'js' )
@@ -146,10 +149,22 @@ class Post_Views_Counter_Counter {
 			
 			$this->check_post( $post_id );
 			
+		}elseif($_POST['istax']){
+			
+			$tax_types = Post_Views_Counter()->options['general']['tax_types_count'];
+			$id = $_POST['post_id'];
+			$cattype = $_POST['post_type'];
+
+			if(!in_array($cattype,$tax_types)){
+				return;
+			}
+
+			$this->count_tax_visit($id);
 		}
 
 		exit;
 	}
+
 
 	/**
 	 * Initialize cookie session.
@@ -317,9 +332,9 @@ class Post_Views_Counter_Counter {
 	 */
 	private function count_tax_visit( $id ) {
 		global $wpdb;
-
 		// get post id
 		$id = (int) (empty( $id ) ? get_the_ID() : $id);
+
 		
 		if ( empty( $id ) )
 			return;
@@ -353,6 +368,7 @@ class Post_Views_Counter_Counter {
 		// cookie already existed?
 
 		if ( $this->cookie['exists'] ) {
+			
 			// post already viewed but not expired?
 			if ( in_array( $id, array_keys( $this->cookie['visited_posts'] ), true ) && current_time( 'timestamp', true ) < $this->cookie['visited_posts'][$id] ) {
 				// update cookie but do not count visit
