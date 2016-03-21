@@ -3,6 +3,41 @@ class adminUserdetail
 {
 	function test()
 	{
+
+		add_action('parent_file', 'menu_correction');
+	    function menu_correction($parent_file) 
+	    {
+	    	global $current_screen,$pagenow;
+	 	$taxonomy = $current_screen->taxonomy;
+	 	$post_type = $current_screen->post_type;
+
+	 	if($post_type == 'product')
+	 	{
+            if($pagenow == 'post.php')
+            {
+                $parent_file = 'edit.php?post_type='.$post_type;
+            }
+
+            if($pagenow == 'edit-tags.php')
+            {
+            	if( $taxonomy == 'bstregions' )
+            	{
+            		$parent_file = $pagenow.'?taxonomy='.$taxonomy.'&post_type='.$post_type;
+            	}
+            	if( $taxonomy == 'bstvencategory' )
+		 		{
+		 			$parent_file = $pagenow.'?taxonomy='.$taxonomy.'&post_type='.$post_type;
+		 		}
+		 		if( $taxonomy == 'yith_shop_vendor') 
+		 		{
+		 			$parent_file = $pagenow.'?taxonomy='.$taxonomy.'&post_type='.$post_type;
+		 		}
+            }
+        }
+        return $parent_file;
+		}
+
+		
 		/* Add column title to Vendors*/
 		add_filter ( 'manage_edit-yith_shop_vendor_columns','add_columns_title');
 		function add_columns_title( $columns ) 

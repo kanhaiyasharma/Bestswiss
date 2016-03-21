@@ -19,7 +19,7 @@ class Post_Views_Counter_Update {
 	public function check_update() {
 		if ( ! current_user_can( 'manage_options' ) )
 			return;
-
+        /*
 		// get current database version
 		$current_db_version = get_option( 'post_views_counter_version', '1.0.0' );
 
@@ -27,7 +27,7 @@ class Post_Views_Counter_Update {
 		if ( version_compare( $current_db_version, Post_Views_Counter()->defaults['version'], '<' ) ) {
 			// update plugin version
 			update_option( 'post_views_counter_version', Post_Views_Counter()->defaults['version'] );
-		}
+		}*/
 	}
 
 }

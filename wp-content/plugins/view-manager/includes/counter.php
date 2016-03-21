@@ -90,6 +90,7 @@ class Post_Views_Counter_Counter {
 	 * @param int $id
 	 */
 	public function check_post_php() {
+		
 		// do not count admin entries
 		if ( is_admin() && ! (defined( 'DOING_AJAX' ) && DOING_AJAX) )
 			return;
@@ -98,14 +99,30 @@ class Post_Views_Counter_Counter {
 		if ( Post_Views_Counter()->options['general']['counter_mode'] != 'php' )
 			return;
 		
-		$post_types = Post_Views_Counter()->options['general']['post_types_count'];
+		$objpgarray= get_queried_object();
 
-		// whether to count this post type
-		if ( empty( $post_types ) || ! is_singular( $post_types ) )
-			return;
+		if(isset($objpgarray->term_id)){
+			
+			$tax_types = Post_Views_Counter()->options['general']['tax_types_count'];
 
-		$this->check_post( get_the_ID() );
-	}
+			if(!in_array($objpgarray->taxonomy,$tax_types))
+				return;
+
+			$this->count_tax_visit($objpgarray->term_id);
+			
+		}else{
+			
+			
+			$post_types = Post_Views_Counter()->options['general']['post_types_count'];
+
+			// whether to count this post type
+			if ( empty( $post_types ) || ! is_singular( $post_types ) )
+				return;
+
+			$this->check_post( get_the_ID() );
+	   }
+		
+	}#end function
 	
 	/**
 	 * Check whether to count visit via AJAX request.
@@ -293,6 +310,102 @@ class Post_Views_Counter_Counter {
 
 		return true;
 	}
+
+	/*
+	 * Count tax visit
+	 *
+	 */
+	private function count_tax_visit( $id ) {
+		global $wpdb;
+
+		// get post id
+		$id = (int) (empty( $id ) ? get_the_ID() : $id);
+		
+		if ( empty( $id ) )
+			return;
+
+		$ips = Post_Views_Counter()->options['general']['exclude_ips'];
+
+		// whether to count this ip
+		if ( ! empty( $ips ) && filter_var( preg_replace( '/[^0-9a-fA-F:., ]/', '', $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP ) && in_array( $_SERVER['REMOTE_ADDR'], $ips, true ) )
+			return;
+
+		// get groups to check them faster
+		$groups = Post_Views_Counter()->options['general']['exclude']['groups'];
+
+		// whether to count this user
+		if ( is_user_logged_in() ) {
+			// exclude logged in users?
+			if ( in_array( 'users', $groups, true ) )
+				return;
+			// exclude specific roles?
+			elseif ( in_array( 'roles', $groups, true ) && $this->is_user_role_excluded( Post_Views_Counter()->options['general']['exclude']['roles'] ) )
+				return;
+		}
+		// exclude guests?
+		elseif ( in_array( 'guests', $groups, true ) )
+			return;
+
+		// whether to count robots
+		if ( $this->is_robot() )
+			return;
+
+		// cookie already existed?
+
+		if ( $this->cookie['exists'] ) {
+			// post already viewed but not expired?
+			if ( in_array( $id, array_keys( $this->cookie['visited_posts'] ), true ) && current_time( 'timestamp', true ) < $this->cookie['visited_posts'][$id] ) {
+				// update cookie but do not count visit
+				$this->save_cookie( $id, $this->cookie, false );
+
+				return;
+			} else
+			// update cookie
+				$this->save_cookie( $id, $this->cookie );
+		} else{
+		// set new cookie
+			$this->save_cookie( $id );
+         }
+		// count visit
+		//$this->count_visit( $id );
+
+		$cache_key_names = array();
+		$using_object_cache = $this->using_object_cache();
+
+		// get day, week, month and year
+		$date = explode( '-', date( 'W-d-m-Y', current_time( 'timestamp' ) ) );
+
+
+		foreach( array(
+		0	 => $date[3] . $date[2] . $date[1], // day like 20140324
+		1	 => $date[3] . $date[0], // week like 201439
+		2	 => $date[3] . $date[2], // month like 201405
+		3	 => $date[3], // year like 2014
+		4	 => 'total'	  // total views
+		) as $type => $period ) {
+			if ( $using_object_cache ) {
+				$cache_key = $id . self::CACHE_KEY_SEPARATOR . $type . self::CACHE_KEY_SEPARATOR . $period;
+				wp_cache_add( $cache_key, 0, self::GROUP );
+				wp_cache_incr( $cache_key, 1, self::GROUP );
+				$cache_key_names[] = $cache_key;
+			} else {
+				// hit the db directly
+				// @TODO: investigate queueing these queries on the 'shutdown' hook instead instead of running them instantly?
+				$this->db_insert_tax( $id, $type, $period, 1 );
+			}
+		}
+		
+
+		// update the list of cache keys to be flushed
+
+		if ( $using_object_cache && ! empty( $cache_key_names ) ) {
+			$this->update_cached_keys_list_if_needed( $cache_key_names );
+		}
+
+		do_action( 'pvc_after_count_visit', $id );
+
+		return true;
+	}
 	
 	/**
 	 * Remove post views from database when post is deleted.
@@ -455,6 +568,20 @@ class Post_Views_Counter_Counter {
 				ON DUPLICATE KEY UPDATE count = count + %d", $id, $type, $period, $count, $count
 				)
 		);
+	}
+
+	private function db_insert_tax( $id, $type, $period, $count = 1 ) {
+		global $wpdb;
+		
+		$prefix = $wpdb->prefix;
+		$count = (int) $count;
+
+		if ( ! $count ) {
+			$count = 1;
+		}
+
+
+		return $wpdb->query("INSERT INTO " . $wpdb->prefix . "vmtax_views (id, type, period, count) VALUES (".$id.", ".$type.",'".$period."', ".$count.") ON DUPLICATE KEY Update count = count + ".$count);
 	}
 	
 	/**

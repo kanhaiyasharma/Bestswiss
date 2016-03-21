@@ -17,6 +17,7 @@ class Post_Views_Counter_Settings {
 	private $positions;
 	private $display_styles;
 	public $post_types;
+	public $tax_types;
 
 	public function __construct() {
 		// actions
@@ -24,6 +25,7 @@ class Post_Views_Counter_Settings {
 		add_action( 'admin_menu', array( $this, 'admin_menu_options' ) );
 		add_action( 'after_setup_theme', array( $this, 'load_defaults' ) );
 		add_action( 'wp_loaded', array( $this, 'load_post_types' ) );
+		add_action( 'wp_loaded', array( $this, 'load_tax_types' ) );
 	}
 
 	/**
@@ -104,6 +106,24 @@ class Post_Views_Counter_Settings {
 		$this->post_types = $post_types;
 	}
 
+	public function load_tax_types() {
+		$tax_types = array();
+
+		// public custom post types
+		foreach ( get_taxonomies() as $key => $tax_type ) {
+			$tax_types[$key] = $tax_type;
+		}
+
+		// sort post types alphabetically with their keys
+		asort( $tax_types, SORT_STRING );
+
+		$this->tax_types = $tax_types;
+	}
+
+	/*
+	 * Get category types
+	 */
+
 	/**
 	 * Get all user roles.
 	 */
@@ -146,10 +166,11 @@ class Post_Views_Counter_Settings {
 			<a class="nav-tab ' . ($tab_key == $key ? 'nav-tab-active' : '') . '" href="' . esc_url( admin_url( 'options-general.php?page=post-views-counter&tab=' . $key ) ) . '">' . $name['name'] . '</a>';
 		}
 
+       echo '</h2>';
 		echo '
-			</h2>
-			<div class="post-views-counter-settings">
-				<div class="df-credits">
+			
+			 <div class="post-views-counter-settings">
+				<!-- <div class="df-credits">
 					<h3 class="hndle">' . __( 'Post Views Counter', 'post-views-counter' ) . ' ' . Post_Views_Counter()->defaults['version'] . '</h3>
 					<div class="inside">
 						<h4 class="inner">' . __( 'Need support?', 'post-views-counter' ) . '</h4>
@@ -163,8 +184,9 @@ class Post_Views_Counter_Settings {
 						<hr />
 						<p class="df-link inner">' . __( 'Created by', 'post-views-counter' ) . ' <a href="http://www.dfactory.eu/?utm_source=post-views-counter-settings&utm_medium=link&utm_campaign=created-by" target="_blank" title="dFactory - Quality plugins for WordPress"><img src="' . POST_VIEWS_COUNTER_URL . '/images/logo-dfactory.png' . '" title="dFactory - Quality plugins for WordPress" alt="dFactory - Quality plugins for WordPress" /></a></p>
 					</div>
-				</div>
-				<form action="options.php" method="post">';
+				</div> --> 
+				';
+				echo '<form action="options.php" method="post">';
 
 		wp_nonce_field( 'update-options' );
 		settings_fields( $this->tabs[$tab_key]['key'] );
@@ -195,6 +217,12 @@ class Post_Views_Counter_Settings {
 		register_setting( 'post_views_counter_settings_general', 'post_views_counter_settings_general', array( $this, 'validate_settings' ) );
 		add_settings_section( 'post_views_counter_settings_general', __( 'General settings', 'post-views-counter' ), '', 'post_views_counter_settings_general' );
 		add_settings_field( 'pvc_post_types_count', __( 'Post Types Count', 'post-views-counter' ), array( $this, 'post_types_count' ), 'post_views_counter_settings_general', 'post_views_counter_settings_general' );
+
+		/* Taxonomy count */
+
+		add_settings_field( 'pvc_tax_types_count', __( 'Category Count', 'post-views-counter' ), array( $this, 'tax_types_count' ), 'post_views_counter_settings_general', 'post_views_counter_settings_general' );
+
+
 		add_settings_field( 'pvc_counter_mode', __( 'Counter Mode', 'post-views-counter' ), array( $this, 'counter_mode' ), 'post_views_counter_settings_general', 'post_views_counter_settings_general' );
 		add_settings_field( 'pvc_post_views_column', __( 'Post Views Column', 'post-views-counter' ), array( $this, 'post_views_column' ), 'post_views_counter_settings_general', 'post_views_counter_settings_general' );
 		add_settings_field( 'pvc_restrict_edit_views', __( 'Restrict Edit', 'post-views-counter' ), array( $this, 'restrict_edit_views' ), 'post_views_counter_settings_general', 'post_views_counter_settings_general' );
@@ -237,6 +265,7 @@ class Post_Views_Counter_Settings {
 		echo '
 		<div id="pvc_post_types_count">';
 
+
 		foreach ( $this->post_types as $post_type => $post_type_name ) {
 			echo '
 					<label class="cb-checkbox"><input id="pvc_post_types_count-' . esc_attr( $post_type ) . '" type="checkbox" name="post_views_counter_settings_general[post_types_count][' . esc_attr( $post_type ) . ']" value="1" ' . checked( in_array( $post_type, Post_Views_Counter()->options['general']['post_types_count'], true ), true, false ) . ' />' . esc_html( $post_type_name ) . ' </label>';
@@ -244,6 +273,23 @@ class Post_Views_Counter_Settings {
 
 		echo '
 				<p class="description">' . esc_html__( 'Select post types for which post views will be counted.', 'post-views-counter' ) . '</p>
+		</div>';
+	}
+
+	/**
+	 * Categoried to count option.
+	 */
+	public function tax_types_count() {
+		echo '
+		<div id="pvc_post_types_count">';
+
+		foreach ( $this->tax_types as $post_type => $post_type_name ) {
+			echo '
+					<label class="cb-checkbox"><input id="pvc_post_types_count-' . esc_attr( $post_type ) . '" type="checkbox" name="post_views_counter_settings_general[tax_types_count][' . esc_attr( $post_type ) . ']" value="1" ' . checked( in_array( $post_type, Post_Views_Counter()->options['general']['tax_types_count'], true ), true, false ) . ' />' . esc_html( $post_type_name ) . ' </label>';
+		}
+
+		echo '
+				<p class="description">' . esc_html__( 'Select Categories for which views will be counted.', 'post-views-counter' ) . '</p>
 		</div>';
 	}
 
@@ -564,6 +610,16 @@ class Post_Views_Counter_Settings {
 				$input['post_types_count'] = array_unique( $post_types );
 			} else
 				$input['post_types_count'] = array();
+
+			if(isset($input['tax_types_count'])){
+				$tax_types = array();
+				foreach ($input['tax_types_count'] as $taxonomy => $status) {
+					$tax_types[]=$taxonomy;
+				}
+				$input['tax_types_count'] = array_unique( $tax_types );
+			}else{
+				$input['tax_types_count'] =array();
+			}
 
 			// counter mode
 			$input['counter_mode'] = isset( $input['counter_mode'], $this->modes[$input['counter_mode']] ) ? $input['counter_mode'] : Post_Views_Counter()->defaults['general']['counter_mode'];

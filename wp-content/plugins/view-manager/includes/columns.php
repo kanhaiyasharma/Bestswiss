@@ -154,7 +154,21 @@ class Post_Views_Counter_Columns {
 				add_filter( 'manage_edit-' . $post_type . '_sortable_columns', array( $this, 'register_sortable_custom_column' ) );
 			}
 		}
+
+		$tax_types = Post_Views_Counter()->options['general']['tax_types_count'];
+		if(!empty($tax_types)){
+			foreach ($tax_types as $taxonomy) {
+
+				add_filter("manage_edit-".$taxonomy."_columns", array($this,'add_new_tax_column')); 
+ 				add_filter("manage_".$taxonomy."_custom_column", array($this,'managetaxcolumn'),10,3); 
+				
+			}
+
+			
+		}
+
 	}
+
 
 	/**
 	 * Register sortable post views column.
@@ -191,7 +205,9 @@ class Post_Views_Counter_Columns {
 				unset( $columns[$column] );
 			}
 
-			$columns['post_views'] = '<span class="dash-icon dashicons dashicons-chart-bar" title="' . __( 'Post Views', 'post-views-counter' ) . '"></span><span class="dash-title">' . __( 'Post Views', 'post-views-counter' ) . '</span>';
+			/*$columns['post_views'] = '<span class="dash-icon dashicons dashicons-chart-bar" title="' . __( 'Post Views', 'post-views-counter' ) . '"></span><span class="dash-title">' . __( 'Post Views', 'post-views-counter' ) . '</span>';*/
+
+			$columns['post_views'] = '<span class="dash-icon dashicons dashicons-chart-bar" title="' . __( 'Post Views', 'post-views-counter' ) . '"></span><span class="dash-title"></span>';
 
 			foreach ( $date as $column => $name ) {
 				$columns[$column] = $name;
@@ -200,6 +216,12 @@ class Post_Views_Counter_Columns {
 			$columns['post_views'] = '<span class="dash-icon dashicons dashicons-chart-bar" title="' . __( 'Post Views', 'post-views-counter' ) . '"></span><span class="dash-title">' . __( 'Post Views', 'post-views-counter' ) . '</span>';
 
 		return $columns;
+	}
+
+	public function add_new_tax_column( $add_new_tax_column ) {
+			$gtoption = get_option('post_views_counter_settings_display');
+			$add_new_tax_column['tax_views']='<span class="dash-icon dashicons dashicons-chart-bar" title="' . __( $gtoption['label'], 'post-views-counter' ) . '"></span><span class="dash-title">' . __( $gtoption['label'], 'post-views-counter' ) . '</span>';
+			    return $add_new_tax_column;
 	}
 
 	/**
@@ -228,6 +250,28 @@ class Post_Views_Counter_Columns {
 			echo (int) $count;
 		}
 	}
+
+   function managetaxcolumn($out, $column_name, $term_id){
+
+  	if ( $column_name === 'tax_views' ) {
+  		$id = $term_id;
+    	global $wpdb;
+
+			// get total post views
+			$count = $wpdb->get_var(
+				$wpdb->prepare( "
+					SELECT count
+					FROM " . $wpdb->prefix . "vmtax_views
+					WHERE id = %d AND type = 4", $id
+				)
+			);
+			$count = ($count!='')?(int) $count:0;
+			$out.=$count;
+  	}
+
+  	return $out;
+
+  }
 	
 	/**
 	 * Handle quick edit.

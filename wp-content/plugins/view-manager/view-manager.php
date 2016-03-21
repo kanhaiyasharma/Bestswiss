@@ -1,24 +1,9 @@
 <?php
 /*
-Plugin Name: Post Views Counter
-Description: Forget WP-PostViews. Display how many times a post, page or custom post type had been viewed in a simple, fast and reliable way.
-Version: 1.2.0
-Author: dFactory
-Author URI: http://www.dfactory.eu/
-Plugin URI: http://www.dfactory.eu/plugins/post-views-counter/
-License: MIT License
-License URI: http://opensource.org/licenses/MIT
-Text Domain: post-views-counter
-Domain Path: /languages
-
-Post Views Counter
-Copyright (C) 2014-2016, Digital Factory - info@digitalfactory.pl
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Plugin Name: aaView Manger
+Description: #
+Version: 1.0.0
+Author: #
 */
 
 // exit if accessed directly
@@ -31,7 +16,7 @@ if ( ! class_exists( 'Post_Views_Counter' ) ) :
  * Post Views Counter final class.
  *
  * @class Post_Views_Counter
- * @version	1.2.0
+ * @version	1.0.0
  */
 final class Post_Views_Counter {
 
@@ -61,8 +46,8 @@ final class Post_Views_Counter {
 			'exclude_ips'			=> array(),
 			'restrict_edit_views'	=> false,
 			'deactivation_delete'	=> false,
-			'cron_run'				=> true,
-			'cron_update'			=> true
+			'cron_run'				=> false,
+			'cron_update'			=> false
 		),
 		'display' => array(
 			'label'				 	=> 'Post Views:',
@@ -79,7 +64,7 @@ final class Post_Views_Counter {
 			'link_to_post'		 	=> true,
 			'icon_class'		 	=> 'dashicons-chart-bar'
 		),
-		'version' => '1.2.0'
+		'version' => '1.0.0'
 	);
 
 	/**
@@ -106,7 +91,7 @@ final class Post_Views_Counter {
 			add_action( 'plugins_loaded', array( self::$instance, 'load_textdomain' ) );
 
 			self::$instance->includes();
-			self::$instance->update		= new Post_Views_Counter_Update();
+			//self::$instance->update		= new Post_Views_Counter_Update();
 			self::$instance->settings	= new Post_Views_Counter_Settings();
 			self::$instance->query		= new Post_Views_Counter_Query();
 			self::$instance->cron		= new Post_Views_Counter_Cron();
@@ -136,7 +121,7 @@ final class Post_Views_Counter {
 	 * @return void
 	 */
 	private function includes() {
-		include_once( POST_VIEWS_COUNTER_PATH . 'includes/update.php' );
+		//include_once( POST_VIEWS_COUNTER_PATH . 'includes/update.php' );
 		include_once( POST_VIEWS_COUNTER_PATH . 'includes/settings.php' );
 		include_once( POST_VIEWS_COUNTER_PATH . 'includes/columns.php' );
 		include_once( POST_VIEWS_COUNTER_PATH . 'includes/query.php' );
@@ -193,10 +178,22 @@ final class Post_Views_Counter {
 			) ' . $charset_collate . ';'
 		);
 
+		dbDelta( '
+			CREATE TABLE IF NOT EXISTS ' . $wpdb->prefix . 'vmtax_views (
+				id bigint unsigned NOT NULL,
+				type tinyint(1) unsigned NOT NULL,
+				period varchar(8) NOT NULL,
+				count bigint unsigned NOT NULL,
+				PRIMARY KEY  (type, period, id),
+				UNIQUE INDEX id_period (id, period) USING BTREE,
+				INDEX type_period_count (type, period, count) USING BTREE
+			) ' . $charset_collate . ';'
+		);
+
 		// add default options
 		add_option( 'post_views_counter_settings_general', $this->defaults['general'], '', 'no' );
 		add_option( 'post_views_counter_settings_display', $this->defaults['display'], '', 'no' );
-		add_option( 'post_views_counter_version', $this->defaults['version'], '', 'no' );
+		//add_option( 'post_views_counter_version', $this->defaults['version'], '', 'no' );
 
 		// schedule cache flush
 		$this->schedule_cache_flush();
@@ -210,6 +207,8 @@ final class Post_Views_Counter {
 		if ( $this->options['general']['deactivation_delete'] ) {
 			delete_option( 'post_views_counter_settings_general' );
 			delete_option( 'post_views_counter_settings_display' );
+			delete_option( 'post_views_counter_version' );
+			
 		}
 
 		// remove schedule
@@ -311,7 +310,7 @@ final class Post_Views_Counter {
 	/**
 	 * Add links to plugin support forum.
 	 */
-	public function plugin_extend_links( $links, $file ) {
+	/*public function plugin_extend_links( $links, $file ) {
 
 		if ( ! current_user_can( 'install_plugins' ) )
 			return $links;
@@ -325,7 +324,7 @@ final class Post_Views_Counter {
 		}
 
 		return $links;
-	}
+	}*/
 
 	/**
 	 * Add link to settings page.
