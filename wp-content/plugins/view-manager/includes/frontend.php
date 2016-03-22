@@ -151,7 +151,6 @@ class Post_Views_Counter_Frontend {
 
 			// whether to count this post type or not
 			if ( empty( $post_types ) || ! is_singular( $post_types ) ){
-				die('echo if condition');
 				return;
 			}
 
