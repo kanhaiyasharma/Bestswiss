@@ -1,0 +1,159 @@
+/*
+Inhalt: Spacers
+Theme Name: HTML5
+Description: Responsives Basis-Template | Version 1
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+/* CONTAINER */
+	.kategorie-listing-container {
+		display:block;
+		width:100%;
+		height:auto;
+		float:left;
+		margin: 80px 0 40px 0;}
+	
+	#shop #sitecontent {
+		height:auto;
+		display:block;
+		margin-bottom:150px;}
+	
+/* HEADER */
+	#shop .category-header {
+		padding: 10px 0 40px @content_padding_left;}
+		
+	.kategorien-header {
+		display:block;
+		float:left;}
+	
+	.filter-header {
+		display:block;
+		float:right;}
+
+	.kategorien-header.zuruck {
+		display:block;
+		padding-left: 14px;}
+	
+	.kategorien-header.zuruck a, .kategorien-header.zuruck a:link {
+		text-decoration:none;
+		color: @gold;
+		font-size: 1.2em;}
+	
+	.kategorien-header.zuruck a:hover {
+		color: @schwarz;
+		opacity: 1;}
+	
+	.kategorien-header.zuruck a:before {
+		display: inline-block;
+		position: relative;
+    	width: 9px;
+    	height: 14px;
+    	left: -14px;
+		content: url('img/content_arrow_back_gold.svg');}
+
+/* KATEGORIE-LISTING-HEADER */
+	.kategorie-listing-header {
+		width:100%;
+		height:auto;
+		float:left;
+		border-bottom-style:solid;
+		border-bottom-width:1.5px;
+		border-bottom-color:@gold;}
+
+/* KATEGORIE-LISTING-TYPO */	
+	.kategorie-listing-title {
+		color:@schwarz;
+		display:block;
+		width:auto;
+		float:left;
+		padding: 0 0 10px 20px;}
+	
+	.kategorie-listing-products h3 {
+		font-size: 1.2em;
+		padding: 14px 0 8px 0;}
+	
+	.kategorie-listing-products .price {
+		color:@gold;}
+
+/* SHOWALL */
+	.kategorie-listing-showall, .kategorie-listing-showall p,  .kategorie-listing-showall p a:link {
+		color: @grau2;
+		display:block;
+		width:auto;
+		float:right;
+		padding: 0 10px 0 0;
+		text-decoration: none;}
+	
+	.kategorie-listing-showall a:hover p {
+		color:@gold;}
+
+	.kategorie-item-showall  {
+		display:block;
+		width:270px;
+		height:280px;
+		margin: 20px 0 0 20px;
+		float:left;
+		background: url('img/shop_plus_big.svg');
+		background-size: 180px 180px;
+		background-repeat: no-repeat;
+		background-position: 40px 50px;}
+	
+	.kategorie-item-showall a, .kategorie-listing-showall-end p {
+		display:block;
+		color: @grau3;
+		font-size: 1.1em;
+		text-align: center;
+		padding-top: 298px;
+		text-decoration: none;}
+	
+	.kategorie-item-showall a:hover  {
+		color:@gold;
+		transition-duration: 0;}
+	
+	.kategorie-listing-showall-end p {
+		text-align: left;
+		padding: 180px 0 0 20px;
+		color: @grau2;}
+	
+	.kategorie-item-showall:hover  {
+		display:block;
+		width:270px;
+		height:280px;
+		margin: 20px 0 0 20px;
+		float:left;
+		background: url('img/shop_plus_big_hover.svg');
+		background-size: 180px 180px;
+		background-repeat: no-repeat;
+		background-position: 40px 50px;
+		background-color: @gold;
+		opacity: @opacy;}
+	
+	.kategorie-listing-showall-end {
+		display:block;
+		width:270px;
+		height:280px;
+		margin: 20px 0 0 20px;
+		float:left;
+		border-left-style: solid;
+		border-left-width: 2.5px;
+		border-left-color: @grau3;}
+
+/* PRODUKT-ITEMS */
+	#shop ul.products {
+		margin-top:10px;
+		width: 100%;}
+
+	#shop .products li {
+		display:block;
+		position: relative;
+		float: left;
+		max-width: 33.33%;
+		min-width: 280px;
+		padding: 20px;}
+	
+	#shop .products img {
+		min-height: 280px;}
+	
+
+	 
