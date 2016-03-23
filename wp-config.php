@@ -28,7 +28,7 @@ define('DB_USER', 'lead_sharad');
 define('FS_METHOD', 'direct');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'lead_sharad');
+define('DB_PASSWORD', 's_Q6W4&+d]JjWxh[');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
