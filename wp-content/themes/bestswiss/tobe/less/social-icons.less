@@ -1,0 +1,24 @@
+/*
+Inhalt: Footer
+Theme Name: HTML5
+Description: Responsives Basis-Template | Version 1
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+/** VARIBALES **/
+	@social_copyright_padding: (@copyright_container_height / 100) * 20;
+
+/** ICONS UNTER DEM FOOTER **/
+	#below-footer #social {
+		padding: @social_copyright_padding @content_padding_right @social_copyright_padding @social_copyright_padding;
+		float: right;}
+	
+	#below-footer #social img {
+		width: (@copyright_container_height - ( 2 * @social_copyright_padding));
+		height: (@copyright_container_height - ( 2 * @social_copyright_padding));
+		margin-left: 12px;}
+
+	#below-footer #social img:hover {
+		opacity: @opacy;
+		transition-duration: @transition-duration;}

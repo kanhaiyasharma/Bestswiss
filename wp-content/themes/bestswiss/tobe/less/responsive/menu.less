@@ -1,0 +1,61 @@
+/*
+Inhalt: Responsive Hamburger - Menu
+Theme Name: HTML5
+Description: Responsives Basis-Template | Version 1
+Author: Timo Oelerich
+Author URI: http://www.oelerich.ch
+*/
+
+/** NAV-ICON **/
+	.responsive-nav-icon::before, .responsive-nav-close::before {
+		color:#861D1F;
+		content: "\f0c9";
+		font-family: FontAwesome;
+   	 	font-size: 22px;
+  		position: relative;
+		font-weight: normal;}
+
+	.responsive-nav-close::before {
+    	color: #ffffff;
+    	content: "\f00d";
+    	font-size: 22px;}
+
+	.responsive-nav-icon {
+		background: #D12427;
+		line-height: normal;
+		padding: 8px 8px 8px 8px;
+		left: 16px;
+		z-index:1000;}
+	
+	.responsive-nav-icon:hover, .responsive-nav-close:hover {
+		opacity: @opacy;}
+	
+	.responsive-nav-close {
+		background: #D12427;
+		line-height: normal;
+		padding: 8px 8px 8px 8px;
+		left: 16px;
+		z-index:100;}
+
+	.responsive-nav-icon, .responsive-nav-close {
+    	cursor: pointer;
+    	display: none;}
+    
+    #hamburger {display:none;}
+
+
+/** AKTIV AB 1'023 PIXEL / BLENDET NAV AUS UND REGELT SLIDE-IN **/
+	@media only screen and (max-width: 767px) {
+		.responsive-nav-icon, .responsive-nav-close, nav.primary.slide-in {
+	    	display: block;
+	    	position: absolute;
+	    	top: 10px;}
+	    	
+		#hamburger {display:block;}
+	    	
+		nav.primary.slide-in {
+    		position: fixed;
+    		z-index: 100;
+    		background: 0 0 rgba(0, 0, 0, 1.00);
+    		top: 0; left: 0; right: 0; bottom: 0;
+    		overflow-y:scroll;}}
