@@ -1,37 +1,37 @@
-( function ( $ ) {
+( function ( jQuery ) {
 
-	$( document ).ready( function () {
+	jQuery( document ).ready( function () {
 		
-		$( '.post-views-counter-settings' ).checkBo();
+		jQuery( '.post-views-counter-settings' ).checkBo();
 		
-		var ip_boxes = $( '#pvc_exclude_ips' ).find( '.ip-box' ).length;
+		var ip_boxes = jQuery( '#pvc_exclude_ips' ).find( '.ip-box' ).length;
 		
-		$( '#pvc_exclude_ips .ip-box:first' ).find( '.remove-exclude-ip' ).hide();
+		jQuery( '#pvc_exclude_ips .ip-box:first' ).find( '.remove-exclude-ip' ).hide();
 
 		// ask whether to reset options to defaults
-		$( document ).on( 'click', '.reset_pvc_settings', function () {
+		jQuery( document ).on( 'click', '.reset_pvc_settings', function () {
 			return confirm( pvcArgsSettings.resetToDefaults );
 		} );
 
 		// remove ip box
-		$( document ).on( 'click', '.remove-exclude-ip', function ( e ) {
+		jQuery( document ).on( 'click', '.remove-exclude-ip', function ( e ) {
 			e.preventDefault();
 			
 			ip_boxes--;
 			
-			var parent = $( this ).parent();
+			var parent = jQuery( this ).parent();
 			
 			// remove ip box
 			parent.slideUp( 'fast', function() {
-				$( this ).remove();
+				jQuery( this ).remove();
 			} );
 		} );
 
 		// add ip box
-		$( document ).on( 'click', '.add-exclude-ip', function () {
+		jQuery( document ).on( 'click', '.add-exclude-ip', function () {
 			ip_boxes++;
 			
-			var parent = $( this ).parents( '#pvc_exclude_ips' ),
+			var parent = jQuery( this ).parents( '#pvc_exclude_ips' ),
 				new_ip_box = parent.find( '.ip-box:last' ).clone().hide();
 				
 			// clear value
@@ -46,17 +46,17 @@
 		} );
 
 		// add current ip
-		$( document ).on( 'click', '.add-current-ip', function () {
+		jQuery( document ).on( 'click', '.add-current-ip', function () {
 			// fill input with user's current ip
-			$( this ).parents( '#pvc_exclude_ips' ).find( '.ip-box' ).last().find( 'input' ).val( $( this ).attr( 'data-rel' ) );
+			jQuery( this ).parents( '#pvc_exclude_ips' ).find( '.ip-box' ).last().find( 'input' ).val( jQuery( this ).attr( 'data-rel' ) );
 		} );
 		
 		// toggle user roles
-		$( '#pvc_exclude-roles, #pvc_restrict_display-roles' ).change( function () {
-			if ( $( this ).is(':checked') ) {
-				$( '.pvc_user_roles' ).slideDown( 'fast' );
+		jQuery( '#pvc_exclude-roles, #pvc_restrict_display-roles' ).change( function () {
+			if ( jQuery( this ).is(':checked') ) {
+				jQuery( '.pvc_user_roles' ).slideDown( 'fast' );
 			} else {
-				$( '.pvc_user_roles' ).slideUp( 'fast' );
+				jQuery( '.pvc_user_roles' ).slideUp( 'fast' );
 			}
 		} );
 

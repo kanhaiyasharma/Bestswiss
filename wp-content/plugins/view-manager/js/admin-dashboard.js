@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function ( jQuery ) {
 
 	// set global options
 	// Chart.defaults.global.tooltips.titleMarginBottom = 0;
@@ -12,11 +12,11 @@
 		
 		var container = document.getElementById( 'pvc_dashboard_container' );
 		
-		if ( $( container ).length > 0 ) {
+		if ( jQuery( container ).length > 0 ) {
 
-			$( container ).addClass( 'loading' ).append( '<span class="spinner is-active"></span>' );
+			jQuery( container ).addClass( 'loading' ).append( '<span class="spinner is-active"></span>' );
 			
-			$.ajax( {
+			jQuery.ajax( {
 				url: pvcArgs.ajaxURL,
 				type: 'POST',
 				dataType: 'json',
@@ -27,8 +27,8 @@
 				} ),
 				success: function ( args ) {
 					
-					$( container ).removeClass( 'loading' );
-					$( container ).find( '.spinner' ).removeClass( 'is-active' );
+					jQuery( container ).removeClass( 'loading' );
+					jQuery( container ).find( '.spinner' ).removeClass( 'is-active' );
 					
 					var config = {
 						type: 'line',
@@ -71,7 +71,7 @@
 						}
 					};
 	
-					$.each( config.data.datasets, function ( i, dataset ) {
+					jQuery.each( config.data.datasets, function ( i, dataset ) {
 						dataset.fill = args.design.fill;
 						dataset.borderColor = args.design.borderColor;
 						dataset.backgroundColor = args.design.backgroundColor;
@@ -90,7 +90,7 @@
 	}
 
 	function updateLegend() {
-		$legendContainer = $( '#legendContainer' );
+		$legendContainer = jQuery( '#legendContainer' );
 		$legendContainer.empty();
 		$legendContainer.append( window.chartPVC.generateLegend() );
 	}

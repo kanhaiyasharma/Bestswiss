@@ -1,8 +1,8 @@
-( function ( $ ) {
+( function ( jQuery ) {
 
-	$( document ).ready( function () {
+	jQuery( document ).ready( function () {
 
-		$.post( pvcArgsFrontend.ajaxURL, {
+		jQuery.post( pvcArgsFrontend.ajaxURL, {
 			action: 'pvc-check-post',
 			pvc_nonce: pvcArgsFrontend.nonce,
 			post_id: pvcArgsFrontend.postID,

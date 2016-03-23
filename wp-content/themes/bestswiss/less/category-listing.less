@@ -44,23 +44,28 @@ Author URI: http://www.oelerich.ch
 		border-bottom-style: solid;
 		border-bottom-color: #ccc;
 		border-bottom-width: 1px;}
+	
+	.catpage {padding-bottom:150px;}
 
 /* IMAGE */	
 	.category-listing .post-image {
 		width: @catlist-img-width;
 		height: @catlist-img-height;
 		float: left; 
-		padding: @catlist-img-padding;} 
+		padding: @catlist-img-padding;
+		z-index:200;} 
 	
-	section.post-image {
+	section.post-image  {
 		margin-right:25px;}
+	
 	
 /* HEADLINE */	
 	.category-listing .category-listing-headline {
-		width: 100%;
-		position: relative;
+		width: auto;
 		display: block;
 		padding: @catlist-headline-padding;}
+	
+	.category-listing .category-listing-headline::after {clear:both;}
 
 	.category-listing .category-listing-headline h1,
 	.category-listing .category-listing-headline a {

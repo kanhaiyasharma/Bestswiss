@@ -647,6 +647,4 @@ function wp_get_attachment( $attachment_id ) {
     );
 }
 
-
-
 ?>

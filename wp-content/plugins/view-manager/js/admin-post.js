@@ -1,45 +1,45 @@
-( function ( $ ) {
+( function ( jQuery ) {
 
-	$( document ).ready( function () {
+	jQuery( document ).ready( function () {
 
 		// post views input
-		$( '#post-views .edit-post-views' ).click( function () {
-			if ( $( '#post-views-input-container' ).is( ":hidden" ) ) {
-				$( '#post-views-input-container' ).slideDown( 'fast' );
-				$( this ).hide();
+		jQuery( '#post-views .edit-post-views' ).click( function () {
+			if ( jQuery( '#post-views-input-container' ).is( ":hidden" ) ) {
+				jQuery( '#post-views-input-container' ).slideDown( 'fast' );
+				jQuery( this ).hide();
 			}
 			return false;
 		} );
 
 		// save post views
-		$( '#post-views .save-post-views' ).click( function () {
+		jQuery( '#post-views .save-post-views' ).click( function () {
 
-			var views = $.trim( $( '#post-views-display b' ).text() );
+			var views = jQuery.trim( jQuery( '#post-views-display b' ).text() );
 
-			$( '#post-views-input-container' ).slideUp( 'fast' );
-			$( '#post-views .edit-post-views' ).show();
+			jQuery( '#post-views-input-container' ).slideUp( 'fast' );
+			jQuery( '#post-views .edit-post-views' ).show();
 
-			views = parseInt( $( '#post-views-input' ).val() );
+			views = parseInt( jQuery( '#post-views-input' ).val() );
 			// reassign value as integer
-			$( '#post-views-input' ).val( views );
+			jQuery( '#post-views-input' ).val( views );
 
-			$( '#post-views-display b' ).text( views );
+			jQuery( '#post-views-display b' ).text( views );
 
 			return false;
 		} );
 
 		// cancel post views
-		$( '#post-views .cancel-post-views' ).click( function () {
+		jQuery( '#post-views .cancel-post-views' ).click( function () {
 
-			var views = $.trim( $( '#post-views-display b' ).text() );
+			var views = jQuery.trim( jQuery( '#post-views-display b' ).text() );
 
-			$( '#post-views-input-container' ).slideUp( 'fast' );
-			$( '#post-views .edit-post-views' ).show();
+			jQuery( '#post-views-input-container' ).slideUp( 'fast' );
+			jQuery( '#post-views .edit-post-views' ).show();
 
-			views = parseInt( $( '#post-views-current' ).val() );
+			views = parseInt( jQuery( '#post-views-current' ).val() );
 
-			$( '#post-views-display b' ).text( views );
-			$( '#post-views-input' ).val( views );
+			jQuery( '#post-views-display b' ).text( views );
+			jQuery( '#post-views-input' ).val( views );
 
 			return false;
 		} );

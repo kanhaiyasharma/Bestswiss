@@ -22,7 +22,7 @@
 	<a href="<?php bloginfo('url'); ?>" title="Bestswiss.ch" id="sitelogo">Bestwiss</a>
 	<!--<div id="sitelogo" href="<?php bloginfo('url'); ?>"><a style="text-decoration:none;" href="<?php bloginfo('url'); ?>"><h1><?php bloginfo('name'); ?></h1></a></div>-->
 	<div id="siteclaim"><p class="test"><?php bloginfo('description'); ?></p></div>
-	<div id="pnav"><nav class="primary"><?php wp_nav_menu( array( 'menu_id'=>62,'theme_location' => 'main' ) ); ?></nav></div>
+	<div id="pnav"><nav class="primary"><?php wp_nav_menu( array( 'menu'=>'Headmenu','menu_id'=>62,'theme_location' => 'main' ) ); ?></nav></div>
 </div>
 </header>
 </div>

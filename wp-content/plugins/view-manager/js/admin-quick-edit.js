@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function ( jQuery ) {
 	// we create a copy of the WP inline edit post function
 	var $wp_inline_edit = inlineEditPost.edit;
 	// and then we overwrite the function with our own code
@@ -15,34 +15,34 @@
 
 		if ( $post_id > 0 ) {
 			// define the edit row
-			var $edit_row = $( '#edit-' + $post_id );
-			var $post_row = $( '#post-' + $post_id );
+			var $edit_row = jQuery( '#edit-' + $post_id );
+			var $post_row = jQuery( '#post-' + $post_id );
 
 			// get the data
-			var $post_views = $( '.column-post_views', $post_row ).text();
+			var $post_views = jQuery( '.column-post_views', $post_row ).text();
 
 			// populate the data
-			$( ':input[name="post_views"]', $edit_row ).val( $post_views );
+			jQuery( ':input[name="post_views"]', $edit_row ).val( $post_views );
 		}
 		
 		return false;
 	};
 
-	$( document ).on( 'click', '#bulk_edit', function () {	
+	jQuery( document ).on( 'click', '#bulk_edit', function () {	
 		// define the bulk edit row
-		var $bulk_row = $( '#bulk-edit' );
+		var $bulk_row = jQuery( '#bulk-edit' );
 
 		// get the selected post ids that are being edited
 		var $post_ids = new Array();
 		$bulk_row.find( '#bulk-titles' ).children().each( function () {
-			$post_ids.push( $( this ).attr( 'id' ).replace( /^(ttle)/i, '' ) );
+			$post_ids.push( jQuery( this ).attr( 'id' ).replace( /^(ttle)/i, '' ) );
 		} );
 
 		// get the data
 		var $post_views = $bulk_row.find( 'input[name="post_views"]' ).val();
 
 		// save the data
-		$.ajax( {
+		jQuery.ajax( {
 			url: ajaxurl, // this is a variable that WordPress has already defined for us
 			type: 'post',
 			async: false,
