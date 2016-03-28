@@ -9,5 +9,5 @@
 #/wp-content/plugins/really-simple-captcha/tmp/
 #/nbproject/
 
-wp-config.php
+#wp-config.php
 .htaccess
