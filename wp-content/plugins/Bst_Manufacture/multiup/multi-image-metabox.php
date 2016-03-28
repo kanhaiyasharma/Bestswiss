@@ -123,6 +123,41 @@ function add_image_metabox(){
 				    </td>
 				</tr>
 
+				<tr class="form-field yith-choosen">
+				    <th scope="row" valign="top">
+				        <label for="yith_vendor_Firstname"><?php _e( 'Firstname', 'yith_wc_product_vendors' ); ?></label>
+				    </th>
+
+				    <td>
+				        <input type="text" class="regular-text" name="yith_vendor_data[bstFirstname]" id="yith_vendor_Firstname" placeholder="" value="<?php echo $vendor->bstFirstname ?>" /><br />
+				    </td>
+				</tr>
+
+				<tr class="form-field yith-choosen">
+				    <th scope="row" valign="top">
+				        <label for="yith_vendor_Lastname"><?php _e( 'Lastname', 'yith_wc_product_vendors' ); ?></label>
+				    </th>
+
+				    <td>
+				        <input type="text" class="regular-text" name="yith_vendor_data[bstLastname]" id="yith_vendor_Lastname" placeholder="" value="<?php echo $vendor->bstLastname ?>" /><br />
+				    </td>
+				</tr>
+
+				<tr class="form-field yith-choosen">
+				    <th scope="row" valign="top">
+				        <label for="yith_vendor_Anrede"><?php _e( 'Anrede', 'yith_wc_product_vendors' ); ?></label>
+				    </th>
+
+				    <td>
+				        <select name="yith_vendor_data[bstAnrede]">
+				        	<option <?php if($vendor->bstAnrede =='Dear' ){ echo "selected";} ?> value="Dear">Dear</option>
+				        	<option <?php if($vendor->bstAnrede =='Mister' ){ echo "selected";} ?> value="Mister">Mister</option>
+				        	<option <?php if($vendor->bstAnrede =='Miss' ){ echo "selected";} ?> value='Miss'>Miss</option>
+				        </select><br />
+				    </td>
+				</tr>
+
+
 				<tr class="form-field">
 				    <th scope="row" valign="top">
 				        <label for="yith_vendor_store_email"><?php _e( 'Store email', 'yith_wc_product_vendors' ); ?></label>

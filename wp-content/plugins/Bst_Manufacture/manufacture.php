@@ -392,10 +392,18 @@ add_action( 'admin_menu', 'wpdocs_register_my_custom_menu_page' );
     $regto = $_POST['yith_vendor_data1']['regto'];
     update_woocommerce_term_meta($idval,'regfrom',$regfrom);
     update_woocommerce_term_meta($idval,'regto',$regto);
+    
+
+    update_woocommerce_term_meta($idval,'bstFirstname',$_POST['yith_vendor_data1']['bstFirstname']);
+    update_woocommerce_term_meta($idval,'bstLastname',$_POST['yith_vendor_data1']['bstLastname']);
+    update_woocommerce_term_meta($idval,'bstAnrede',$_POST['yith_vendor_data1']['bstAnrede']);
+   
 
 
     
     update_woocommerce_term_meta($idval,'chkshowlogo',$_POST['yith_vendor_data1']['chkshowlogo']);
+    update_woocommerce_term_meta($idval,'vendorstatus',$_POST['yith_vendor_data1']['vendorstatus']);
+
     update_woocommerce_term_meta($idval,'vendorstatus',$_POST['yith_vendor_data1']['vendorstatus']);
     
 
@@ -646,5 +654,54 @@ function wp_get_attachment( $attachment_id ) {
         'title' => $attachment->post_title
     );
 }
+
+
+if ( ! function_exists( 'twentyfifteen_post_thumbnail' ) ) :
+/**
+ * Display an optional post thumbnail.
+ *
+ * Wraps the post thumbnail in an anchor element on index views, or a div
+ * element when on single views.
+ *
+ * @since Twenty Fifteen 1.0
+ */
+function twentyfifteen_post_thumbnail() {
+    if ( post_password_required() || is_attachment() || ! has_post_thumbnail() ) {
+        return;
+    }
+
+    if ( is_singular() ) :
+    ?>
+
+    <div class="post-thumbnail">
+        <?php the_post_thumbnail(); ?>
+    </div><!-- .post-thumbnail -->
+
+    <?php else : ?>
+
+    <a class="post-thumbnail" href="<?php the_permalink(); ?>" aria-hidden="true">
+        <?php
+            the_post_thumbnail( 'post-thumbnail', array( 'alt' => get_the_title() ) );
+        ?>
+    </a>
+
+    <?php endif; // End is_singular()
+}
+endif;
+
+function removecategorydescrption($columns)
+{
+ // only edit the columns on the current taxonomy
+ if ( !isset($_GET['taxonomy']) || $_GET['taxonomy'] != 'yith_shop_vendor' )
+ return $columns;
+
+
+ // unset the description columns
+ if ($columns['description'] ){ ?> <style type="text/css">.term-description-wrap{display: none;}</style> <?php }
+
+ return $columns;
+}
+add_filter('manage_edit-yith_shop_vendor_columns','removecategorydescrption');
+
 
 ?>
