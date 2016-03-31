@@ -397,7 +397,7 @@ add_action( 'admin_menu', 'wpdocs_register_my_custom_menu_page' );
     update_woocommerce_term_meta($idval,'bstFirstname',$_POST['yith_vendor_data1']['bstFirstname']);
     update_woocommerce_term_meta($idval,'bstLastname',$_POST['yith_vendor_data1']['bstLastname']);
     update_woocommerce_term_meta($idval,'bstAnrede',$_POST['yith_vendor_data1']['bstAnrede']);
-   
+
 
 
     
@@ -506,6 +506,7 @@ add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_style' );
 
 //add_action( 'admin_init', 'includefiles' );
 function inputtype($title,$fieldarr,$inputname){
+    
 global  $woocommerce;
     $currencysymbol = get_woocommerce_currency_symbol();
 
@@ -521,7 +522,7 @@ global  $woocommerce;
         break;
         case "select":
 
-          $inputval.="<select  id='' name='shipping[".$inputname."][".$title."]' class='' tabindex='-1' title='".$fieldarr['title']."'>";
+          $inputval.="<select  id='shipping_".$inputname."_".$title."' name='shipping[".$inputname."][".$title."]' class='' tabindex='-1' title='".$fieldarr['title']."'>";
 
            foreach ($fieldarr['fieldarray']['options'] as $optkey => $optvalue) {
                $checked = ($fieldarr['fieldarray']['default']==$optvalue)?'selected':'';
@@ -702,6 +703,63 @@ function removecategorydescrption($columns)
  return $columns;
 }
 add_filter('manage_edit-yith_shop_vendor_columns','removecategorydescrption');
+
+/*
+ * Action to add shipping price
+ *
+ */
+
+add_action( 'woocommerce_before_calculate_totals', 'add_custom_price' );
+
+    function add_custom_price( $cart_object ) {
+        global $wpdb;
+        $prefix = $wpdb->prefix;
+
+         if((isset($_POST)) && (array_column($_POST['cart'],'bstshiping'))){
+
+             $postArrya=$_POST;
+            
+
+            foreach ( $cart_object->cart_contents as $key => $value ) {
+                
+                if(isset($postArrya['cart'][$key]['bstshiping'])){
+                    $carshipArr = explode('__',$postArrya['cart'][$key]['bstshiping']);
+
+                    /* For FlatRate */
+                    if($carshipArr[2] == 'flatrate'){
+                       $vendorid = $carshipArr[1];
+                       $price = $value['data']->price;
+                       $qty =$postArrya['cart'][$key]['qty'];
+
+                       $querystr = "SELECT flatrate FROM ".$prefix."yith_vendors_shipping where vid =".$vendorid;
+                       $queryresult = $wpdb->get_results($querystr);
+                       $flaterate = unserialize($queryresult[0]->flatrate);
+
+                       $flatrate=$flaterate['cost'];
+                       $newprice=$price*$qty;
+                       $newprice=$newprice+$flatrate;
+                       $value['line_total'] = $newprice;
+                       $value['line_subtotal'] = $newprice;
+                       //__p($key);
+                       //__p($value);
+
+                    }
+                }
+//die;
+                if ( $value['product_id'] == $target_product_id ) {
+                    $value['data']->price = $custom_price;
+                }
+                /*
+                // If your target product is a variation
+                if ( $value['variation_id'] == $target_product_id ) {
+                    $value['data']->price = $custom_price;
+                }
+                */
+            }
+            
+         }#end condition
+
+    }
 
 
 ?>

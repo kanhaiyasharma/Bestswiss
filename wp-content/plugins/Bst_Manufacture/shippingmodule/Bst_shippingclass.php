@@ -218,13 +218,17 @@ foreach ($shippingmethod as $shipkey => $shipvalue) {
 
       if($shipvalue->id == 'flat_rate'){
           $accordian.=$flatrate;
+          $accordian.="<input type='hidden' name='shipping[flatrate][lbltitlename]' value='".$title."'/>";
 
       }elseif($shipvalue->id == 'free_shipping'){
-          $accordian.=$freeship;        
+          $accordian.=$freeship; 
+          $accordian.="<input type='hidden' name='shipping[freeshiping][lbltitlename]' value='".$title."'/>";
       }elseif($shipvalue->id == 'international_delivery'){
           $accordian.=$fastdelivery; 
+          $accordian.="<input type='hidden' name='shipping[fastdelivery][lbltitlename]' value='".$title."'/>";
       }elseif($shipvalue->id == 'main'){
           $accordian.=$objvaaa; 
+          $accordian.="<input type='hidden' name='shipping[wigthshipping][lbltitlename]' value='".$title."'/>";
       }
                                     
       $accordian.="</div></div>";
@@ -243,7 +247,7 @@ $script_toaddhiddenvalue ="<script>
       }else{
         jQuery('.'+hiddenval).val(0);
       }
-    });
+    }); 
 
     /* for weightbased shipping */
     jQuery('form').submit(function(){
@@ -253,6 +257,23 @@ $script_toaddhiddenvalue ="<script>
       var totalsublgth = jQuery('.ordersubtotal .wightfield').length;
       jQuery('.orderttlcount').val(totalsublgth);
     });
+
+    /* Free Shipping */
+      jQuery('#shipping_freeshiping_requires').change(function(){
+        if(jQuery(this).val()=='N/A'){
+          jQuery('#shippingfreeshipingmin_amount').attr('disabled','disabled');
+        }else{
+          jQuery('#shippingfreeshipingmin_amount').removeAttr('disabled');
+        }
+      });
+
+     if(jQuery('#shipping_freeshiping_requires').length){
+      if(jQuery('#shipping_freeshiping_requires').val()=='N/A'){
+          jQuery('#shippingfreeshipingmin_amount').attr('disabled','disabled');
+        }else{
+          jQuery('#shippingfreeshipingmin_amount').removeAttr('disabled');
+        }
+      }
 
   })
 </script>";
