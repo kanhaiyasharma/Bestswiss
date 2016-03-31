@@ -294,7 +294,6 @@ $shaout= $woocommerce_postfinance_settings['shaout'];
           					</div>	
           			</fieldset>   
       			</fieldset>
-			
 
 			<script type="text/javascript">
 				jQuery(document).ready(function(){
@@ -304,6 +303,7 @@ $shaout= $woocommerce_postfinance_settings['shaout'];
 					  if(xhr.responseJSON.hidden_form_fields=='truee'){
 					  	
 					  	jQuery('.psoform').html(xhr.responseJSON.array_val);
+					  	jQuery('.woocommerce-error').html('Please wait redirecting... ').addClass('woocommerce-message').removeClass('woocommerce-error');
 					  	jQuery('.psoform').submit();
 					  }
 					});
