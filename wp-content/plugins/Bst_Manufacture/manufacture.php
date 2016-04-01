@@ -128,7 +128,7 @@ function bst_setup_post_type() {
     );
     register_taxonomy( 'bstregions', array( 'product' ), $args );
 
-    wp_insert_term( 'Zurich', 'bstregions', $args = array() );
+    /*wp_insert_term( 'Zurich', 'bstregions', $args = array() );
     wp_insert_term( 'The Bernese Oberland', 'bstregions', $args = array() );
     wp_insert_term( 'Northeastern Switzerland', 'bstregions', $args = array() );
     wp_insert_term( 'Basel & the Jura', 'bstregions', $args = array() );
@@ -137,7 +137,7 @@ function bst_setup_post_type() {
     wp_insert_term( 'Geneva', 'bstregions', $args = array() );
     wp_insert_term( 'Lucerne & Central Switzerland', 'bstregions', $args = array() );
     wp_insert_term( 'The Grisons & the Engadine', 'bstregions', $args = array() );
-    wp_insert_term( 'The Ticino', 'bstregions', $args = array() );
+    wp_insert_term( 'The Ticino', 'bstregions', $args = array() );*/
 
 
     /*
